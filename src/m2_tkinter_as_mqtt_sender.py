@@ -47,7 +47,7 @@ def main():
 
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid()
-    forward_button['command'] = lambda: mqtt_client.send_message("forward", [left_speed_entry,right_speed_entry])
+    forward_button['command'] = lambda: go_forward(mqtt_client,left_speed_entry,right_speed_entry)
     root.bind('<Up>', lambda event: print("Forward key"))
 
     left_button = ttk.Button(main_frame, text="Left")
@@ -67,7 +67,7 @@ def main():
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid()
-    back_button['command'] = lambda: mqtt_client.send_message("reverse", [left_speed_entry,right_speed_entry])
+    back_button['command'] = lambda: go_backward(mqtt_client,left_speed_entry,right_speed_entry)
     root.bind('<Down>', lambda event: print("Back key"))
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -90,5 +90,11 @@ def main():
     e_button['command'] = lambda: mqtt_client.send_message("exit_remote")
 
     root.mainloop()
+
+def go_forward(mqtt_client,left_speed_entry,right_speed_entry):
+    mqtt_client.send_message("forward", [left_speed_entry.get(), right_speed_entry.get()])
+
+def go_backward(mqtt_client,left_speed_entry,right_speed_entry):
+    mqtt_client.send_message("reverse", [left_speed_entry.get(), right_speed_entry.get()])
 
 main()
