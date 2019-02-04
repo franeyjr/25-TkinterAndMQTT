@@ -87,7 +87,7 @@ def main():
 
     e_button = ttk.Button(main_frame, text="Exit")
     e_button.grid()
-    e_button['command'] = lambda: mqtt_client.send_message("exit_remote")
+    e_button['command'] = lambda: exit()
 
     root.mainloop()
 
